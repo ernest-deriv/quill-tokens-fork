@@ -1,7 +1,9 @@
 import {
   CoreSdConfig,
   SemanticDarkSdConfig,
+  SemanticDarkMobileConfig,
   SemanticLightSdConfig,
+  SemanticLightMobileConfig,
   SemanticMobileSdConfig,
   SemanticSmSdConfig,
   SemanticMdSdConfig,
@@ -19,6 +21,16 @@ describe('Tailwind Exports', () => {
   });
   it('Should generate Light Theme Semantic CSS variables properly', () => {
     const sdExport = SemanticLightSdConfig.exportPlatform('semantic_light');
+    expect(sdExport).toMatchSnapshot();
+  });
+
+  it('Should generate Mobile Dark Theme Semantic variables properly', () => {
+    const sdExport = SemanticDarkMobileConfig.exportPlatform('semantic_mobile_flutter_dark');
+    expect(sdExport).toMatchSnapshot();
+  });
+
+  it('Should generate Mobile Light Theme Semantic variables properly', () => {
+    const sdExport = SemanticLightMobileConfig.exportPlatform('semantic_mobile_flutter_light');
     expect(sdExport).toMatchSnapshot();
   });
 

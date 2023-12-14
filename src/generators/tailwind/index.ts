@@ -13,6 +13,7 @@ import {
   stringValueTransformer,
   tailwindTransforms,
   tokenPathTransformer,
+  mobileColorTransformer,
 } from '../../transformers/tailwind.transformers';
 import { makeFontStylesAction, makeStylesAction } from '../../actions/tailwind.actions';
 import { desktopTargetFormatter } from '../../formatters/desktop-target.formatter';
@@ -30,6 +31,7 @@ StyleDictionary.registerAction(makeFontStylesAction);
 StyleDictionary.registerFormat(desktopTargetFormatter);
 StyleDictionary.registerTransform(stringValueTransformer);
 StyleDictionary.registerFormat(TokenNamesFormatter);
+StyleDictionary.registerTransform(mobileColorTransformer);
 
 export const CoreSdConfig = StyleDictionary.extend({
   source: [RAW_CORE_SOURCE_FOLDER],
@@ -94,6 +96,54 @@ export const SemanticDarkSdConfig = StyleDictionary.extend({
     },
   },
 });
+
+
+export const SemanticLightMobileConfig = StyleDictionary.extend({
+  source: [RAW_CORE_SOURCE_FOLDER, `${RAW_TOKENS_BASE_FOLDER}/semantic/theme/light.json`],
+  platforms: {
+    semantic_mobile_flutter_light: {
+      // Todo(Horam): I kept the customized transform to show the possibility but it is not working as expected.
+      transforms:['deriv/mobile-color','name/cti/camel','color/hex8flutter'], 
+      buildPath: QUILL_TAILWIND_BUILD_PATH,
+      files: [
+        {
+          destination: 'mobile_light_colors.dart',
+          format: 'flutter/class.dart',
+          className: 'MobileLightColors',
+          filter: (token) => token.path.includes('semantic') && token.type === 'color',
+          options: {
+            outputReferences: false,
+            showFileHeader: true,
+          },
+        },
+      ],
+    },
+  },
+});
+
+export const SemanticDarkMobileConfig = StyleDictionary.extend({
+  source: [RAW_CORE_SOURCE_FOLDER, `${RAW_TOKENS_BASE_FOLDER}/semantic/theme/dark.json`],
+  platforms: {
+    semantic_mobile_flutter_dark: {
+      // Todo(Horam): I kept the customized transform to show the possibility but it is not working as expected.
+      transforms: [ 'name/cti/camel','deriv/mobile-color', 'color/hex8flutter'],
+      buildPath: QUILL_TAILWIND_BUILD_PATH,
+      files: [
+        {
+          destination: 'mobile_dark_colors.dart',
+          format: 'flutter/class.dart',
+          className: 'MobileDarkColors',
+         filter: (token) => token.path.includes('semantic') && token.type === 'color',
+          options: {
+            outputReferences: false,
+            showFileHeader: true,
+          },
+        },
+      ],
+    },
+  },
+});
+
 
 export const SemanticMobileSdConfig = StyleDictionary.extend({
   source: [RAW_CORE_SOURCE_FOLDER, `${RAW_TOKENS_BASE_FOLDER}/semantic/viewPort/default.json`],

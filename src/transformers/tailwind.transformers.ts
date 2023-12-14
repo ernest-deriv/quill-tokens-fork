@@ -35,6 +35,13 @@ export const spacingNameTransformer: Named<Transform> = {
   transformer: (token) => token.path.join('-'),
 };
 
+export const mobileColorTransformer: Named<Transform> = {
+  name: 'deriv/mobile-color',
+  type: 'value',
+  matcher:(token)=> token.type === 'color' && token.path.includes('semantic'),
+  transformer: (token)=> String(token.value),
+};
+
 export const tokenPathTransformer: Named<Transform> = {
   name: 'deriv/token-path',
   type: 'attribute',
