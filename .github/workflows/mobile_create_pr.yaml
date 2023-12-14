@@ -28,7 +28,9 @@ jobs:
         uses: actions/checkout@v2
         with: 
           repository: ernest-deriv/flutter-deriv-packages 
+          ssh-key: ${{ secrets.SSH_PACKAGES }}
 
+      
       - name: Check folder structure 
         run: ls   
 
