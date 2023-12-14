@@ -46,6 +46,24 @@ jobs:
           name: my-artifact
       - name: Run ls
         run: ls   
+      - name: Copy generated dart files to deriv_theme   
+        run: cp mobile_dark_colors.dart mobile_light_colors.dart /packages/deriv_theme/
+
+      - name: Setup Git User
+        uses: fregante/setup-git-user@77c1b5542f14ab6db4b8462d6857e31deb988b09
+
+      - name: run git add and commit
+        run: |
+            git add .
+            git commit -m 'feat: auto generate files'
+
+
+      - name: Create Pull Request on updated changelog and pubspec file.
+        uses: peter-evans/create-pull-request@76c6f5c20e2111bfee3cd30fae52a25e410f5efc
+        with:
+          token: ${{ secrets.PAT }}
+          title: "chore(version): bump version and update changelog"
+          base: dev       
 
 
       # - name: Checkout repository
