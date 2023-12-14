@@ -6,7 +6,7 @@ on:
       - Ernest/quill_design_poc
 
 jobs:
-  create-pr-and-test:
+  generate_dart_files:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,20 +24,43 @@ jobs:
       - name: Run Command For Generating Dart
         run: npm run build
 
+      - name: Upload Generated Dart Artifacts 
+        uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: dist/quill-tailwind/mobile_theme 
+          
+  create_pr:
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v2
         with: 
           repository: ernest-deriv/flutter-deriv-packages 
           ssh-key: ${{ secrets.SSH_PACKAGES }}
+      - uses: actions/download-artifact@master
+        with:
+          name: my-artifact
+      - name: Run ls
+        run: ls   
+
+
+      # - name: Checkout repository
+      #   uses: actions/checkout@v2
+      #   with: 
+      #     repository: ernest-deriv/flutter-deriv-packages 
+      #     ssh-key: ${{ secrets.SSH_PACKAGES }}
 
       
-      - name: Check folder structure 
-        # run: |
-        #  cd ..
-        #  ls
-        run: cd ..
-      - name: Run ls
-        run: ls
+      # - name: Check folder structure 
+      #   # run: |
+      #   #  cd ..
+      #   #  ls
+      #   run: cd ..
+      # - name: Run ls
+      #   run: ls
+
          
 
 
