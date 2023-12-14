@@ -31,7 +31,9 @@ jobs:
           path: dist/quill-tailwind/mobile_theme 
           
   create_pr:
+    needs: generate_dart_files
     runs-on: ubuntu-latest
+
 
     steps:
       - name: Checkout repository
