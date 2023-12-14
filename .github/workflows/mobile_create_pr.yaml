@@ -32,7 +32,11 @@ jobs:
 
       
       - name: Check folder structure 
-        run: ls   
+        run: |
+         cd ..
+         ls
+         
+
 
 
 
