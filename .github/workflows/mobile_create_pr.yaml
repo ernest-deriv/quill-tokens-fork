@@ -1,0 +1,44 @@
+name: PR and Test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  create-pr-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Command For Generating Dart
+        run: npm run build
+
+      - name: Create Pull Request in B
+        run: |
+          export BRANCH_NAME="feature-branch"
+          git checkout -b $BRANCH_NAME
+          git add .
+          git commit -m "Automated changes"
+          git push origin $BRANCH_NAME
+
+          # Create pull request using GitHub API
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/regentmarkets/flutter-deriv-packages/pulls \
+            -d '{
+              "title": "Automated PR from A to B",
+              "head": "'"$BRANCH_NAME"'",
+              "base": "main"
+            }'
