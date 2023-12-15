@@ -66,43 +66,4 @@ jobs:
           base: dev       
 
 
-      # - name: Checkout repository
-      #   uses: actions/checkout@v2
-      #   with: 
-      #     repository: ernest-deriv/flutter-deriv-packages 
-      #     ssh-key: ${{ secrets.SSH_PACKAGES }}
-
-      
-      # - name: Check folder structure 
-      #   # run: |
-      #   #  cd ..
-      #   #  ls
-      #   run: cd ..
-      # - name: Run ls
-      #   run: ls
-
-         
-
-
-
-
- 
-
-      # - name: Create Pull Request in B
-      #   run: |
-      #     export BRANCH_NAME="feature-branch"
-      #     git checkout -b $BRANCH_NAME
-      #     git add .
-      #     git commit -m "Automated changes"
-      #     git push origin $BRANCH_NAME
-
-      #     # Create pull request using GitHub API
-      #     curl -X POST \
-      #       -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-      #       -H "Accept: application/vnd.github.v3+json" \
-      #       https://api.github.com/repos/regentmarkets/flutter-deriv-packages/pulls \
-      #       -d '{
-      #         "title": "Automated PR from A to B",
-      #         "head": "'"$BRANCH_NAME"'",
-      #         "base": "main"
-      #       }'
+     
