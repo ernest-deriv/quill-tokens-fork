@@ -29,6 +29,7 @@ jobs:
         with:
           name: my-artifact
           path: dist/quill-tailwind/mobile_theme 
+
           
   create_pr:
     needs: generate_dart_files
@@ -41,7 +42,7 @@ jobs:
         with: 
           repository: ernest-deriv/flutter-deriv-packages 
           ssh-key: ${{ secrets.SSH_PACKAGES }}
-      - uses: actions/download-artifact@eff4d42b1f6ff704c7a0f37152ed8793673560ef
+      - uses: actions/download-artifact@v3
         with:
           name: my-artifact
       - name: Run ls
