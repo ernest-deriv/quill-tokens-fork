@@ -41,7 +41,7 @@ jobs:
         with: 
           repository: ernest-deriv/flutter-deriv-packages 
           ssh-key: ${{ secrets.SSH_PACKAGES }}
-      - uses: actions/download-artifact@master
+      - uses: actions/download-artifact@eff4d42b1f6ff704c7a0f37152ed8793673560ef
         with:
           name: my-artifact
       - name: Run ls
